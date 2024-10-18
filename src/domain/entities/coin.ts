@@ -1,5 +1,5 @@
 export interface Coin {
-    id: number;
+    id: string;
     name: string;
     image: string;
     symbol: string;
@@ -10,6 +10,6 @@ export interface Coin {
     market_cap_rank: number;
     circulating_supply: number;
     total_supply: number;
-    max_supply: number;
+    max_supply: number | null;
     price_change_percentage_24h: number;
 }
