@@ -1,7 +1,7 @@
-import { View } from "react-native";
-import { ActivityIndicator, Text } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
 import { getCoins } from "../../../actions/coins";
 import { useQuery } from "@tanstack/react-query";
+import { BitcoinBg } from "../../components/ui/BitcoinBg";
 
 export const HomeScreen = () => {
   const { isLoading, data = [] } = useQuery({
@@ -10,16 +10,22 @@ export const HomeScreen = () => {
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
   return (
-    <View>
-        <Text variant="displaySmall">HomeScreen</Text>
+    <View style={{}}>
+        {/* <Text variant="displaySmall">HomeScreen</Text>
         {
           isLoading
           ? <ActivityIndicator />
           : data ? <Text>{JSON.stringify(data)}</Text> : <Text>No data available</Text>
-        }
-        {/* <Button mode="contained" onPress={() => console.log('Pressed')}>
-          Press me
-          </Button> */}
+        } */}
+        <BitcoinBg style={styles.imgPosition} />
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  imgPosition: {
+    position: 'relative',
+    marginHorizontal: 'auto',
+  },
+});
