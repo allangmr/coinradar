@@ -4,19 +4,18 @@ import { getCoins } from "../../../actions/coins";
 import { useQuery } from "@tanstack/react-query";
 
 export const HomeScreen = () => {
-  const { isLoading, data } = useQuery({
+  const { isLoading, data = [] } = useQuery({
     queryKey: ['coins'],
-    queryFn: () => getCoins(),
+    queryFn: () => getCoins(1),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-  console.log(data, 'data');
   return (
     <View>
         <Text variant="displaySmall">HomeScreen</Text>
         {
           isLoading
           ? <ActivityIndicator />
-          : data ? <Text>{data[0].name}</Text> : <Text>No data available</Text>
+          : data ? <Text>{JSON.stringify(data)}</Text> : <Text>No data available</Text>
         }
         {/* <Button mode="contained" onPress={() => console.log('Pressed')}>
           Press me
