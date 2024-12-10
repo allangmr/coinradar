@@ -8,6 +8,7 @@ export const getCoins = async (page: number, limit: number = 20): Promise<Coin[]
         const url = `/coins/markets?vs_currency=usd&page=${page}&per_page=${limit}`;
         const { data } = await coinApi.get<CoinAPIPaginatedResponse[]>(url);
         const coins = data.map((coin) => CoinMapper.coinApiToEntity(coin));
+        console.log(coins, 'coins');
         return coins;
     } catch (error) {
         console.log(error, 'error');
