@@ -1,16 +1,21 @@
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { getCoins } from "../../../actions/coins";
 import { useQuery } from "@tanstack/react-query";
 import { BitcoinBg } from "../../components/ui/BitcoinBg";
+import { Text } from "react-native-paper";
+import { globalTheme } from "../../../config/theme/global-theme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { CoinCard } from "../../components/coins/coinCard";
 
 export const HomeScreen = () => {
-  const { isLoading, data = [] } = useQuery({
+  const { top } = useSafeAreaInsets();
+  const { isLoading, data: coins = [] } = useQuery({
     queryKey: ['coins'],
     queryFn: () => getCoins(1),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
   return (
-    <View style={{}}>
+    <View style={globalTheme.globalMargin}>
         {/* <Text variant="displaySmall">HomeScreen</Text>
         {
           isLoading
@@ -18,6 +23,14 @@ export const HomeScreen = () => {
           : data ? <Text>{JSON.stringify(data)}</Text> : <Text>No data available</Text>
         } */}
         <BitcoinBg style={styles.imgPosition} />
+        <FlatList
+          data={coins}
+          keyExtractor={(coin, index) => `${coin.id}-${index}`}
+          numColumns={2}
+          style={{marginTop: top + 5}}
+          ListHeaderComponent={ () => (<Text variant="displayMedium" style={{textAlign: 'center'}}>Coin Radar</Text>) }
+          renderItem={({item}) => <CoinCard coin={item} />}
+        />
     </View>
   );
 };
