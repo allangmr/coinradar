@@ -20,7 +20,7 @@ export const HomeScreen = () => {
         {
           isLoading
           ? <ActivityIndicator />
-          : coins ? <Text>{JSON.stringify(coins)}</Text> : <Text>No data available</Text>
+          : !coins && <Text>No data available</Text>
         }
         {
           error && <Text>{error.message}</Text>
