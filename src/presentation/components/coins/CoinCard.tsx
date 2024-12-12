@@ -1,6 +1,7 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Coin } from "../../../domain/entities/coin";
 import { Card } from 'react-native-paper';
+import { FadeInImage } from '../ui/FadeInImage';
 
 interface Props {
     coin: Coin;
@@ -9,7 +10,7 @@ interface Props {
 export const CoinCard = ({ coin }: Props) => {
     return (
         <Card style={styles.card}>
-            <Image source={{ uri: coin.image }} style={styles.image} />
+            <FadeInImage uri={ coin.image } style={styles.image} />
             <View style={styles.cardContainer}>
                 <Text style={styles.name}>{coin.name}</Text>
                 <Text style={styles.symbol}>{coin.symbol.toUpperCase()}</Text>
