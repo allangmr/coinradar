@@ -62,15 +62,15 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#dadada',
+        color: '#fff',
     },
     symbol: {
         fontSize: 14,
-        color: '#dadada',
+        color: '#fff',
     },
     price: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#dadada',
+        color: '#fff',
     },
 });
