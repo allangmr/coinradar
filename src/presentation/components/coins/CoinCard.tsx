@@ -1,16 +1,29 @@
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Coin } from "../../../domain/entities/coin";
 import { Card } from 'react-native-paper';
 import { FadeInImage } from '../ui/FadeInImage';
+import { getColorFromImage } from '../../../config/helpers/get-color';
 
 interface Props {
     coin: Coin;
 }
 
 export const CoinCard = ({ coin }: Props) => {
+    const [color, setColor] = useState<string>('#f1fdf6');
+
+    useEffect(() => {
+        const fetchColor = async () => {
+            const colorFromImage = await getColorFromImage(coin.image);
+            setColor(colorFromImage);
+        };
+
+        fetchColor();
+    }, [coin.image]);
+
     return (
-        <Card style={styles.card}>
-            <FadeInImage uri={ coin.image } style={styles.image} />
+        <Card style={[styles.card, { backgroundColor: color }]}>
+            <FadeInImage uri={coin.image} style={styles.image} />
             <View style={styles.cardContainer}>
                 <Text style={styles.name}>{coin.name}</Text>
                 <Text style={styles.symbol}>{coin.symbol.toUpperCase()}</Text>
@@ -24,7 +37,6 @@ const styles = StyleSheet.create({
     card: {
         display: 'flex',
         flexDirection: 'row',
-        backgroundColor: '#f1fdf6',
         borderRadius: 8,
         padding: 16,
         marginVertical: 8,
@@ -43,22 +55,22 @@ const styles = StyleSheet.create({
         marginRight: 16,
         display: 'flex',
     },
+    cardContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
     name: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: '#fff',
     },
     symbol: {
         fontSize: 14,
-        color: '#888',
+        color: '#fff',
     },
     price: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#000',
-    },
-    cardContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        color: '#fff',
     },
 });
