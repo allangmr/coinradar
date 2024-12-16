@@ -26,8 +26,8 @@ export const HomeScreen = () => {
         {
           error && <Text>{error.message}</Text>
         }
-        <BitcoinBg style={styles.imgPosition} />
-        <Text variant="displayMedium" style={{ textAlign: 'center', paddingBottom: 20 }}>Coin Radar</Text>
+        {/* <BitcoinBg style={styles.imgPosition} /> */}
+        <Text variant="displayMedium" style={{ textAlign: 'center', paddingVertical: 20 }}>Coin Radar</Text>
         <FlatList
           data={coins}
           keyExtractor={(coin, index) => `${coin.id}-${index}`}
