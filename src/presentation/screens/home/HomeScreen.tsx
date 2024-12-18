@@ -17,7 +17,7 @@ export const HomeScreen = () => {
   //   // staleTime: 1000 * 60 * 5, // 5 minutes
   // });
 
-  const { isLoading, data: coins = [], error, fetchNextPage } = useInfiniteQuery({
+  const { isLoading, data: coins, error, fetchNextPage } = useInfiniteQuery({
     queryKey: ['coins', 'infinite'],
     initialPageParam: 0,
     queryFn: ( params ) => getCoins(params.pageParam),
@@ -39,7 +39,7 @@ export const HomeScreen = () => {
         {/* <BitcoinBg style={styles.imgPosition} /> */}
         <Text variant="displayMedium" style={{ textAlign: 'center', paddingVertical: 20 }}>Coin Radar</Text>
         <FlatList
-          data={coins?.pages?.flat() ?? []}
+          data={coins?.pages?.flatMap(page => page) ?? []}
           keyExtractor={(coin, index) => `${coin.id}-${index}`}
           numColumns={1}
           style={{paddingTop: top + 5}}
