@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { Coin } from "../../../domain/entities/coin";
 import { Card } from 'react-native-paper';
 import { FadeInImage } from '../ui/FadeInImage';
 import { getColorFromImage } from '../../../config/helpers/get-color';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../navigator/Navigator';
 
 interface Props {
     coin: Coin;
@@ -21,15 +23,19 @@ export const CoinCard = ({ coin }: Props) => {
         fetchColor();
     }, [coin.image]);
 
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
     return (
-        <Card style={[styles.card, { backgroundColor: color }]}>
-            <FadeInImage uri={coin.image} style={styles.image} />
-            <View style={styles.cardContainer}>
-                <Text style={styles.name}>{coin.name}</Text>
-                <Text style={styles.symbol}>{coin.symbol.toUpperCase()}</Text>
-                <Text style={styles.price}>${coin.current_price.toFixed(2)}</Text>
-            </View>
-        </Card>
+        <Pressable onPress={() => navigation.navigate('CoinScreen', { coinId: Number(coin.id) })}>
+            <Card style={[styles.card, { backgroundColor: color }]}>
+                <FadeInImage uri={coin.image} style={styles.image} />
+                <View style={styles.cardContainer}>
+                    <Text style={styles.name}>{coin.name}</Text>
+                    <Text style={styles.symbol}>{coin.symbol.toUpperCase()}</Text>
+                    <Text style={styles.price}>${coin.current_price.toFixed(2)}</Text>
+                </View>
+            </Card>
+        </Pressable>
     );
 };
 
